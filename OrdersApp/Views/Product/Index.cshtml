@@ -1,0 +1,71 @@
+﻿@model IEnumerable<OrdersApp.Models.Tuotteet>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container-fluid">
+    <h2>Products</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <h3 class="card-header">@item.Nimi</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@item.Ahinta €</h5>
+                </div>
+                <img style="height: fit-content; display: inline-block;" src="@item.ImageLink" />
+                <div class="card-body">
+                    <a href="@item.ImageLink" class="card-link">Product Picture</a>
+                </div>
+            </div>
+        </div>
+    }
+
+    </div>
+</div>
+<script>
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("mytable");
+        switching = true;
+        dir = "asc";
+
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            } if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+
+</script>
